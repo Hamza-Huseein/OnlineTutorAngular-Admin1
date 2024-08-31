@@ -1,0 +1,205 @@
+<mat-tab-group style="margin-top: 150px;">
+    <mat-tab label="All Course "> 
+
+<mat-form-field>
+    <mat-label>Filter</mat-label>
+    <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
+</mat-form-field>
+
+<div class="mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource" matSort>
+
+        <ng-container matColumnDef="courseid">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> CourseId </th>
+            <td mat-cell *matCellDef="let row"> {{row.courseId}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="coursename">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+            <td mat-cell *matCellDef="let row"> {{row.courseName}} </td>
+        </ng-container>
+        <!-- ID Column -->
+        <ng-container matColumnDef="description">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Description </th>
+            <td mat-cell *matCellDef="let row"> {{row.description}} </td>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="price">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Price </th>
+            <td mat-cell *matCellDef="let row"> {{row.price}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="numberofhours">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Number Of Hours </th>
+            <td mat-cell *matCellDef="let row"> {{row.numberOfHours}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="disacountamount">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Disacount Amount </th>
+            <td mat-cell *matCellDef="let row"> {{row.disacountAmount}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="discounttype">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Discount Type </th>
+            <td mat-cell *matCellDef="let row"> {{row.discountType}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="priceafterdiscount">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Price After Discount </th>
+            <td mat-cell *matCellDef="let row"> {{row.priceAfterDiscount}} </td>
+        </ng-container>
+        <ng-container matColumnDef="isactive">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> IsActive </th>
+            <td mat-cell *matCellDef="let row"> {{row.isActive ? 'Yes' : 'No'}} </td>
+          </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns" ></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"(click)="selectCourse(row)"></tr>
+
+        <!-- Row shown when there is no matching data. -->
+        <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+        </tr>
+    </table>
+
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+</div>
+
+</mat-tab>
+<mat-tab label="Edit Course "> 
+    <div class="card mb-4">
+        <div class="card-header"> </div>
+        <div class="card-body">
+            <form style="margin-left: 350px;">
+                <div class="col-md-6"style="margin-bottom: 15px;">
+                    <label class="small mb-1" for="inputLastName">CourseId</label>
+                    <input class="form-control" id="inputLastName" type="text" placeholder="Enter the CourseId here" 
+                    [(ngModel)]="selectedCourse.courseId" name="courseId">
+                </div>
+
+                <div class="col-md-6"style="margin-bottom: 15px;">
+                    <label class="small mb-1" for="inputLastName">Name</label>
+                    <input class="form-control" id="inputLastName" type="text" placeholder="Enter the Name here" 
+                    [(ngModel)]="selectedCourse.courseName" name="courseName">
+                </div>
+                  <!-- Form Group (birthday)-->
+                  <div class="col-md-6" style="margin-bottom: 15px;">
+                    <label class="small mb-1" for="inputBirthday">Description</label>
+                    <input class="form-control" id="inputBirthday" type="text" name="birthday" placeholder="Enter the Description  here"
+                    [(ngModel)]="selectedCourse.description" name="description" >
+                </div>
+                <!-- Form Group (username)-->
+                <div class="col-md-6"style="margin-bottom: 15px;">
+                    <label class="small mb-1" for="inputLastName">Discount Type</label>
+                    <input class="form-control" id="inputLastName" type="text" placeholder="Enter the Discount Type here"
+                    [(ngModel)]="selectedCourse.discountType" name="discountType" >
+                </div>
+                <div class="col-md-6"style="margin-bottom: 15px;">
+                    <label class="small mb-1" for="inputLastName"> Price</label>
+                    <input class="form-control" id="inputLastName" type="text" placeholder="Enter the  Price here" 
+                    [(ngModel)]="selectedCourse.price" name="price">
+                </div>
+                
+                <div class="col-md-6"style="margin-bottom: 15px;">
+                    <label class="small mb-1" for="inputLastName"> Number Of Hours</label>
+                    <input class="form-control" id="inputLastName" type="text" placeholder="Enter the  Number Of Hours here" 
+                    [(ngModel)]="selectedCourse.numberOfHours" name="numberOfHours">
+                </div>
+                
+                <div class="col-md-6"style="margin-bottom: 15px;">
+                    <label class="small mb-1" for="inputLastName"> Disacount Amount</label>
+                    <input class="form-control" id="inputLastName" type="text" placeholder="Enter the  Number Of Hours here"
+                    [(ngModel)]="selectedCourse.disacountAmount" name="disacountAmount" >
+                </div>
+
+                <div class="col-md-6"style="margin-bottom: 15px;">
+                    <label class="small mb-1" for="inputLastName"> Price After Discount</label>
+                    <input class="form-control" id="inputLastName" type="text" placeholder="Enter the  Price After Discount here" 
+                    [(ngModel)]="selectedCourse.priceAfterDiscount" name="priceAfterDiscount">
+                </div>
+                
+                
+                  <div class="col-md-6" style="margin-bottom: 15px;">
+                    <mat-checkbox id="inputIsActive" [(ngModel)]="selectedCourse.isActive" name="isActive">
+                      Active
+                    </mat-checkbox>
+                  </div>
+                <!-- Save changes button-->
+                <button class="btn btn-primary" type="button" style="margin-top: 15px;"
+                (click)="saveChanges()">Save changes</button>
+            </form>
+        </div>
+    </div>
+</mat-tab>
+<mat-tab label="Create Course">
+    <div class="card mb-4">
+        <div class="card-header"> </div>
+        <div class="card-body">
+            <form style="margin-left: 350px;">
+                <div class="col-md-6"style="margin-bottom: 15px;">
+                    <label class="small mb-1" for="inputLastName">Course Name</label>
+                    <input class="form-control" id="inputLastName" type="text" placeholder="Enter the CourseId here" 
+                    [(ngModel)]="Input.name" name="name">
+                </div>
+
+                  <!-- Form Group (birthday)-->
+                  <div class="col-md-6" style="margin-bottom: 15px;">
+                    <label class="small mb-1" for="inputBirthday">Description</label>
+                    <input class="form-control" id="inputBirthday" type="text" name="birthday" placeholder="Enter the Description  here"
+                    [(ngModel)]="Input.description" name="description" >
+                </div>
+                <!-- Form Group (username)-->
+                <div class="col-md-6"style="margin-bottom: 15px;">
+                    <label class="small mb-1" for="inputLastName">Discount Type</label>
+                    <input class="form-control" id="inputLastName" type="text" placeholder="Enter the Discount Type here"
+                    [(ngModel)]="Input.discountType" name="discountType" >
+                </div>
+                <div class="col-md-6"style="margin-bottom: 15px;">
+                    <label class="small mb-1" for="inputLastName"> Price</label>
+                    <input class="form-control" id="inputLastName" type="text" placeholder="Enter the  Price here" 
+                    [(ngModel)]="Input.price" name="price">
+                </div>
+                
+                <div class="col-md-6"style="margin-bottom: 15px;">
+                    <label class="small mb-1" for="inputLastName"> Number Of Hours</label>
+                    <input class="form-control" id="inputLastName" type="text" placeholder="Enter the  Number Of Hours here" 
+                    [(ngModel)]="Input.numberOfHours" name="numberOfHours">
+                </div>
+                
+                <div class="col-md-6"style="margin-bottom: 15px;">
+                    <label class="small mb-1" for="inputLastName"> Disacount Amount</label>
+                    <input class="form-control" id="inputLastName" type="text" placeholder="Enter the  Number Of Hours here"
+                    [(ngModel)]="Input.disacountAmount" name="disacountAmount" >
+                </div>
+                <div class="col-md-6"style="margin-bottom: 15px;">
+                    <label class="small mb-1" for="inputLastName"> Image</label>
+                    <input class="form-control" id="inputLastName" type="text" placeholder="Enter the  Number Of Hours here"
+                    [(ngModel)]="Input.image" name="image" >
+                </div>
+
+                <div class="col-md-6"style="margin-bottom: 15px;">
+                    <label class="small mb-1" for="inputLastName"> Price After Discount</label>
+                    <input class="form-control" id="inputLastName" type="text" placeholder="Enter the  Price After Discount here" 
+                    [(ngModel)]="Input.priceAfterDiscount" name="priceAfterDiscount">
+                </div>
+                
+           
+                 
+                <button class="btn btn-primary" type="button" style="margin-top: 15px;"
+                (click)="saveChangesCreate()">Save changes</button>
+            </form>
+        </div>
+    </div>
+  </mat-tab>
+<mat-tab label="Delete Course">
+    <div class="card mb-4">
+      <div class="card-header"></div>
+      <div class="card-body">
+        <form style="margin-left: 350px;">
+          <button >Deactivate Course</button>
+        </form>
+      </div>
+    </div>
+  </mat-tab>
+
+</mat-tab-group>
